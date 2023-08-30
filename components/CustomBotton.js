@@ -5,11 +5,11 @@ export function CustomButton() {
      return (
           <TouchableOpacity
                activeOpacity={0.9}
-               style={[buttonStyle]}
-               onPress={isLoading ? undefined : onPress}
+               // style={[Style]}
+               // onPress={isLoading ? undefined : onPress}
           >
-               <Text style={[styles.button_text, textStyle]}>
-                    {isLoading ? 'Cargando...' : ''}
+               <Text style={[styles.button_text]}>
+                    {/* {isLoading ? 'Cargando...' : ''} */}gg
                </Text>
           </TouchableOpacity>
      );
