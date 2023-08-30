@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { CustomInput, CustomButton } from '../components';
-import { CameraScreen } from '../components/CameraScreen';
 import Header from '../components/Header';
 import { BottonRegister } from '../components/BottonRegister';
 import { ForgotPassword } from '../components/ForgotPassword';
+import { OpenNativeCamera } from '../components/openNativeCamera';
 
 interface InputField {
   placeholder: string;
@@ -58,7 +58,7 @@ export const RegisterScreen: React.FC = () => {
       <Header />
       <Text style={styles.title}>¡Bienvenido!</Text>
       <Text style={styles.subTitle}>Conviértete ahora en un agente Flexy.</Text>
-      <CameraScreen />
+      <OpenNativeCamera />
       {inputFields.map((field, index) => (
         <CustomInput
           key={index}
