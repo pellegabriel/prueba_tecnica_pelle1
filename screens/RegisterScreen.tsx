@@ -5,6 +5,9 @@ import Header from '../components/Header';
 import { BottonRegister } from '../components/BottonRegister';
 import { ForgotPassword } from '../components/ForgotPassword';
 import { OpenNativeCamera } from '../components/openNativeCamera';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../types/navigationTypes';
 
 interface InputField {
   placeholder: string;
@@ -12,13 +15,16 @@ interface InputField {
   onChange: (name: string, text: string) => void;
 }
 
-export const RegisterScreen: React.FC = () => {
+export const RegisterScreen = () => {
   const [formData, setFormData] = useState({
     username: '',
     phoneNumber: '',
     email: '',
-    password: ''
+    password: '',
+    image: null as string | null,
   });
+  
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'RegisterScreen'>>(); // Especifica el tipo aquí
 
   const [formValid, setFormValid] = useState(true);
 
@@ -47,18 +53,30 @@ export const RegisterScreen: React.FC = () => {
     return true;
   }
 
-  const navigateToLogin = () => {
+  function handleImageCaptured(uri: string) {
+    setFormData({
+      ...formData,
+      image: uri
+    });
+  }
+  
+
+  const navigateToProfile = () => {
     if (validateForm()) {
-      // Aquí se manejaría la navegación a la pantalla de inicio de sesión
+      navigation.navigate('LoginScreen', { formData });
     }
   };
+
+  function navigateToLogin(): void {
+    throw new Error('Not implemented.');
+  }
 
   return (
     <View style={styles.container}>
       <Header />
       <Text style={styles.title}>¡Bienvenido!</Text>
       <Text style={styles.subTitle}>Conviértete ahora en un agente Flexy.</Text>
-      <OpenNativeCamera />
+      <OpenNativeCamera onImageCaptured={(uri) => handleImageCaptured(uri)} />
       {inputFields.map((field, index) => (
         <CustomInput
           key={index}
@@ -73,7 +91,7 @@ export const RegisterScreen: React.FC = () => {
         text={'¿Olvidaste tu contraseña?'}
       />
       <BottonRegister
-        onPress={navigateToLogin}
+        onPress={navigateToProfile}
         text={'Regístrate'}
       />
       <CustomButton
@@ -86,11 +104,12 @@ export const RegisterScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
-    marginTop: 35,
-  },
+    marginTop: -60
+    },
   title: {
     color: 'black',
     fontSize: 32,

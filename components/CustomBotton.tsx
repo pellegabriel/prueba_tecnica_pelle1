@@ -4,16 +4,14 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 interface CustomButtonProps {
      onPress: () => void;
      text: string;
-     // cualquier otra prop que quieras definir
    }
    
-export const CustomButton: React.FC<CustomButtonProps> = ({ onPress, text }) => {
+export const CustomButton = ({ } : CustomButtonProps) => {
      return (
    
           <TouchableOpacity
                activeOpacity={0.5}
-               // style={[Style]}
-               // onPress={isLoading ? undefined : onPress}
+
           >
           <Text style={styles.textContainer}>
                <Text style={styles.firstPart}>¿Ya tenes una cuenta? </Text>

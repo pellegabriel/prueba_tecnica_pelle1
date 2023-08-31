@@ -4,7 +4,6 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 interface ForgotPasswordProps {
      onPress: () => void;
      text: string;
-     // cualquier otra prop que quieras definir
    }
    
 export const ForgotPassword: React.FC<ForgotPasswordProps> = ({ onPress, text }) => {

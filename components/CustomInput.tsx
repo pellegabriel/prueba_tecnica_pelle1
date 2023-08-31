@@ -22,7 +22,7 @@ export const CustomInput: React.FC<CustomInputProps> = ({ placeholder, onChangeT
       {isPassword && (
         <TouchableOpacity onPress={() => setIsSecure(!isSecure)} style={styles.iconContainer}>
           <Image
-            source={require('../assets/eye.png')} // Cambia esto por la imagen que prefieras
+            source={require('../assets/eye.png')} 
             style={styles.logo}
             resizeMode="contain"
           />

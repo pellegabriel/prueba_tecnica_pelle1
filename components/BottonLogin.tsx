@@ -1,12 +1,12 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-interface BottonRegisterProps {
+interface BottonLoginProps {
   onPress: () => void;
   text: string;
 }
 
-export const BottonRegister = ({ onPress, text } : BottonRegisterProps ) => {
+export const BottonLogin = ({ onPress, text } : BottonLoginProps ) => {
   return (
     <TouchableOpacity
       activeOpacity={0.9}

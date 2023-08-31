@@ -5,7 +5,7 @@ const Header: React.FC = () => {
   return (
     <View style={styles.headerContainer}>
       <Image
-        source={require('../assets/logo.png')} // Reemplaza con la ruta a tu logo
+        source={require('../assets/logo.png')}
         style={styles.logo}
         resizeMode="contain"
       />
@@ -16,16 +16,15 @@ const Header: React.FC = () => {
 const styles = StyleSheet.create({
   headerContainer: {
     width: '100%',
-    height: 72, // Puedes ajustar la altura según tus necesidades
+    height: 72, 
     backgroundColor: 'white',
-    flexDirection: 'row', // Añade esto
-    justifyContent: 'flex-end', // Añade esto
+    flexDirection: 'row', 
+    justifyContent: 'flex-end', 
     alignItems: 'center',
-    marginTop: 0,
   },
   logo: {
-    width: 210, // Puedes ajustar el ancho según tus necesidades
-    height: 100,// Puedes ajustar la altura según tus necesidades
+    width: 210, 
+    height: 100,
   },
 });
 

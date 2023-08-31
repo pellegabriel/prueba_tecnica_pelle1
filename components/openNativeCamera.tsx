@@ -2,30 +2,37 @@ import React, { useState } from 'react';
 import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
 import { launchCamera, CameraOptions, MediaType } from 'react-native-image-picker';
 
-export const OpenNativeCamera = () => {
+interface OpenNativeCameraProps {
+  onImageCaptured: (uri: string) => void;
+}
+
+export const OpenNativeCamera = ({ onImageCaptured } : OpenNativeCameraProps) => {
   const [imageUri, setImageUri] = useState<string | null>(null);
 
-  const openNativeCamera = () => {
-  const options: CameraOptions = {
-    quality: 0.5,
-    mediaType: 'photo' as MediaType,
-    saveToPhotos: true,
+  const openCamera = () => {
+    const options: CameraOptions = {
+      quality: 0.5,
+      mediaType: 'photo' as MediaType,
+      saveToPhotos: true,
+    };
+
+    launchCamera(options, (response: any) => {
+      if (response.didCancel) {
+        console.log('User cancelled camera');
+      } else if (response.errorMessage) {
+        console.log('Camera Error: ', response.errorMessage);
+      } else {
+        const source = { uri: response.assets[0].uri };
+        setImageUri(source.uri);
+        console.log('photo source', source);
+
+        onImageCaptured(source.uri);
+      }
+    });
   };
 
-  launchCamera(options, (response: any) => {
-    if (response.didCancel) {
-      console.log('User cancelled camera');
-    } else if (response.errorMessage) {
-      console.log('Camera Error: ', response.errorMessage);
-    } else {
-      const source = { uri: response.assets[0].uri };
-      setImageUri(source.uri);
-      console.log('photo source', source);
-    }
-  })}
-
   return (
-    <TouchableOpacity style={styles.container} onPress={openNativeCamera}>
+    <TouchableOpacity style={styles.container} onPress={openCamera}>
         <View style={styles.button}>
             {imageUri ? (
               <Image
