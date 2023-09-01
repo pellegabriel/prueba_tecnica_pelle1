@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/navigationTypes';
 import Header from '../components/Header';
 import { OpenNativeCamera } from '../components/openNativeCamera';
+import { useProfileController } from '../controllers/profileControllers';
 
 type Props = StackScreenProps<RootStackParamList, 'ProfileScreen'>;
 
 export const ProfileScreen: React.FC<Props> = ({ route }) => {
-  const { formData } = route.params;
-  const [imageUri, setImageUri] = useState<string | null>(formData.image);
-  
-  const handleImageCaptured = (uri: string) => {
-    setImageUri(uri);
-  };
+  const {
+    imageUri,
+    handleImageCaptured
+  } = useProfileController(route); 
   
   return (
     <View style={styles.container}>
@@ -27,14 +26,14 @@ export const ProfileScreen: React.FC<Props> = ({ route }) => {
       ) : (
         <OpenNativeCamera onImageCaptured={handleImageCaptured} />
       )}
-        <Text style={styles.textContainer}>
-               <Text style={styles.firstPart}>Usuario: </Text>
-               <Text style={styles.secondPart}>{formData.username}</Text>
-        </Text>
-        <Text style={styles.textContainer}>
-               <Text style={styles.firstPart}>Tel.: </Text>
-               <Text style={styles.secondPart}>{formData.phoneNumber}</Text>
-        </Text>
+      <Text style={styles.textContainer}>
+          <Text style={styles.firstPart}>Usuario: </Text>
+          <Text style={styles.secondPart}>{route.params.formData.username}</Text>
+      </Text>
+      <Text style={styles.textContainer}>
+          <Text style={styles.firstPart}>Tel.: </Text>
+          <Text style={styles.secondPart}>{route.params.formData.phoneNumber}</Text>
+      </Text>
     </View>
   );
 };

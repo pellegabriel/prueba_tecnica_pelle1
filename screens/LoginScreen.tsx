@@ -1,61 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { CustomInput, CustomButton } from '../components';
+import React from 'react';
+import { View, Text, StyleSheet,  } from 'react-native';
+import { CustomInput,  } from '../components';
 import Header from '../components/Header';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
+import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../types/navigationTypes';
 import { BottonLogin } from '../components/BottonLogin';
+import { useLoginController } from '../controllers/logInControllers';
 
-interface InputField {
-  placeholder: string;
-  name: string;
-  onChange: (name: string, text: string) => void;
-}
 type Props = StackScreenProps<RootStackParamList, 'LoginScreen'>;
 
 export const LoginScreen: React.FC<Props> = ({ route }) => {
-  const [formValid, setFormValid] = useState(true);
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'LoginScreen'>>();
-  const inputFields: InputField[] = [
+  const {
+    formValid,
+    handleInputChange,
+    navigateToHome
+  } = useLoginController(route);
+
+  const inputFields = [
     { name: 'email', placeholder: 'hola@tuemail.com', onChange: handleInputChange },
     { name: 'password', placeholder: 'ingresa tu contraseña', onChange: handleInputChange },
   ];
-  const [formData, setFormData] = useState(route.params.formData);
-  const [inputData, setInputData] = useState({
-    email: '',
-    password: ''
-  });
-  
-  function handleInputChange(name: string, text: string) {
-    setInputData({
-      ...inputData,
-      [name]: text,
-    });
-  }
-  
-  function validateForm() {
-    const { email, password } = inputData;
-  
-    if (!email || !password) {
-      setFormValid(false);
-      return false;
-    }
-  
-    if (email !== formData.email || password !== formData.password) {
-      setFormValid(false);
-      return false;
-    }
-  
-    setFormValid(true);
-    return true;
-  }
-  
-  const navigateToHome = () => {
-    if (validateForm()) {
-      navigation.navigate('ProfileScreen', { formData });
-    }
-  };
 
   return (
     <View style={styles.container}>
