@@ -25,7 +25,8 @@ export const CustomButton = ({ } : CustomButtonProps) => {
 const styles = StyleSheet.create({
   textContainer: {
     flexDirection: 'row', 
-    paddingTop: 20
+    paddingTop: 20,
+    fontFamily: 'Plus Jakarta Sans'
   },
   firstPart: {
      fontWeight: '300',

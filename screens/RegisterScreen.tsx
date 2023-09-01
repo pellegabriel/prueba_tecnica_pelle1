@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { CustomInput, CustomButton } from '../components';
 import Header from '../components/Header';
@@ -41,7 +41,9 @@ export const RegisterScreen = () => {
       [name]: text
     });
   }
-
+  useEffect(() => {
+    console.log(styles.title);
+  }, []);
   function validateForm() {
     const { username, phoneNumber, email, password } = formData;
     if (!username || !phoneNumber || !email || !password) {
@@ -108,14 +110,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
-    marginTop: -60
-    },
+    marginTop: -60,
+  },
   title: {
     color: 'black',
     fontSize: 32,
     fontWeight: 'bold',
     marginBottom: 5,
     marginTop: 50,
+    fontFamily: 'PlusJakartaSans',
   },
   subTitle: {
     color: '#C0C0C0',
